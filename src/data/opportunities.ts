@@ -1,5 +1,5 @@
 import type { Opportunity } from "../types";
-import { permitsForCommune } from "./permits";
+import { permitsForCommune, streetPool } from "./permits";
 import { communes } from "./communes";
 
 type Seed = {
@@ -461,6 +461,169 @@ const seeds: Seed[] = [
   },
 ];
 
+// Additional communes are populated procedurally rather than hand-authored,
+// reusing the same Seed shape so they flow through the identical pipeline
+// (sub-scores, planning confidence derived from real comparable counts, etc.)
+const generatedCommuneIds = [
+  "ixelles",
+  "etterbeek",
+  "schaerbeek",
+  "saint-gilles",
+  "forest",
+  "woluwe-saint-pierre",
+  "auderghem",
+  "vilvoorde",
+  "grimbergen",
+  "dilbeek",
+  "sint-pieters-leeuw",
+  "beersel",
+  "linkebeek",
+  "wezembeek-oppem",
+  "kortenberg",
+  "hoeilaart",
+];
+
+function mulberry32(seed: number) {
+  let a = seed;
+  return function () {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const zoningPool = [
+  "Residential — moderate density",
+  "Residential — low density",
+  "Residential — transit-oriented density bonus",
+  "Residential — recently rezoned for higher density",
+  "Residential — mixed density",
+];
+
+const buildingPool = [
+  "Detached house on an oversized plot",
+  "Vacant commercial building, disused for several years",
+  "Ageing rowhouse in poor condition",
+  "Underused industrial or storage plot",
+  "Two adjoined townhouses, structurally poor condition",
+  "Single-family house with a large rear garden",
+  "Former retail unit with residential upper floors",
+];
+
+const whyPool = [
+  "Plot size significantly exceeds the footprint of the existing structure",
+  "Straightforward site with no shared-wall constraints",
+  "Good access from a public road, no easements identified",
+  "Comparable mid-rise projects have cleared review recently nearby",
+  "Zoning envelope allows meaningfully more than what's built today",
+  "No major environmental constraints identified",
+  "Reasonable distance to public transport",
+  "Site sits within a corridor the municipality is actively densifying",
+  "Single-owner title simplifies acquisition",
+];
+
+const watchPool = [
+  "Public inquiry likely given the residential setting",
+  "Neighbouring properties may raise objections",
+  "Height above the surrounding roofline will draw scrutiny",
+  "Parking ratio requirements may constrain the scheme",
+  "Demolition permit required before a building permit can be filed",
+  "Site shape may require a bespoke massing study",
+  "Access road width should be verified before filing",
+  "Mature trees on site may require a compensation plan",
+];
+
+function pick<T>(rand: () => number, pool: T[], n: number): T[] {
+  const arr = [...pool];
+  const out: T[] = [];
+  for (let i = 0; i < n && arr.length > 0; i++) {
+    const idx = Math.floor(rand() * arr.length);
+    out.push(arr.splice(idx, 1)[0]);
+  }
+  return out;
+}
+
+function generateSeeds(): Seed[] {
+  const rand = mulberry32(4820231);
+  const out: Seed[] = [];
+  let newTodayBudget = 2;
+
+  for (const communeId of generatedCommuneIds) {
+    const commune = communes.find((c) => c.id === communeId)!;
+    const streets = streetPool[communeId] ?? ["Rue Centrale"];
+    const count = 2 + Math.floor(rand() * 2); // 2-3 opportunities per commune
+
+    for (let i = 0; i < count; i++) {
+      const street = streets[Math.floor(rand() * streets.length)];
+      const number = 4 + Math.floor(rand() * 240);
+
+      const base = commune.developmentFriendliness * 9 + (rand() - 0.5) * 34;
+      const score = Math.max(32, Math.min(96, Math.round(base)));
+
+      const siteAreaM2 = Math.round(1300 + rand() * 4200);
+      const useRatio = 0.12 + rand() * 0.28;
+      const builtAreaM2 = Math.round(siteAreaM2 * useRatio);
+      const buildableFactor = 0.32 + score / 260;
+      const buildableMin = Math.round(siteAreaM2 * buildableFactor);
+      const buildableMax = Math.round(buildableMin * (1.18 + rand() * 0.14));
+      const unitsMin = Math.max(3, Math.round(buildableMin / 105));
+      const unitsMax = Math.max(unitsMin + 2, Math.round(buildableMax / 88));
+
+      const baseMonths = Math.round(commune.medianDecisionDays / 30);
+      const timelineMonths: [number, number] = [Math.max(6, baseMonths - 1), baseMonths + 3];
+
+      const availableComparables = permitsForCommune(communeId).length;
+      const comparableCount = Math.max(4, Math.min(availableComparables, 6 + Math.floor(rand() * 6)));
+
+      const floodRoll = rand();
+      const floodRisk: "low" | "medium" | "high" = floodRoll > 0.92 ? "high" : floodRoll > 0.75 ? "medium" : "low";
+      const heritageConstraint = rand() > 0.84;
+
+      let detectedDaysAgo: number;
+      if (newTodayBudget > 0 && rand() > 0.7) {
+        detectedDaysAgo = 0;
+        newTodayBudget--;
+      } else {
+        detectedDaysAgo = Math.floor(rand() * 30);
+      }
+
+      const why = pick(rand, whyPool, 3);
+      why.splice(
+        Math.floor(rand() * (why.length + 1)),
+        0,
+        `${commune.approvalRate}% approval rate in ${commune.name} over the past 24 months`
+      );
+
+      out.push({
+        id: `opp-${communeId}-${i + 1}`,
+        communeId,
+        address: `${street} ${number}, ${commune.name}`,
+        dLat: (rand() - 0.5) * 0.016,
+        dLng: (rand() - 0.5) * 0.016,
+        score,
+        siteAreaM2,
+        builtAreaM2,
+        buildable: [buildableMin, buildableMax],
+        units: [unitsMin, unitsMax],
+        timelineMonths,
+        zoning: zoningPool[Math.floor(rand() * zoningPool.length)],
+        currentBuilding: buildingPool[Math.floor(rand() * buildingPool.length)],
+        context: commune.blurb,
+        whyItWorks: why,
+        watchOuts: pick(rand, watchPool, 2),
+        floodRisk,
+        heritageConstraint,
+        transitWalkMin: 4 + Math.floor(rand() * 17),
+        detectedDaysAgo,
+        comparableCount,
+      });
+    }
+  }
+  return out;
+}
+
 function scoreBand(score: number) {
   if (score >= 85) return "excellent" as const;
   if (score >= 70) return "strong" as const;
@@ -479,7 +642,8 @@ function subScoresFor(seed: Seed) {
 }
 
 function buildOpportunities(): Opportunity[] {
-  return seeds.map((seed) => {
+  const allSeeds = [...seeds, ...generateSeeds()];
+  return allSeeds.map((seed) => {
     const commune = communes.find((c) => c.id === seed.communeId)!;
     const comparablePermitIds = permitsForCommune(seed.communeId)
       .slice(0, seed.comparableCount)

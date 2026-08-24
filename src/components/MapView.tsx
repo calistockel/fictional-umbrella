@@ -43,6 +43,10 @@ export function MapView({
     return Math.min(2.6, Math.max(0.85, v));
   }
 
+  // Commune labels only earn their place once you've zoomed past the
+  // territory-wide overview, so the default view reads as clean score dots.
+  const labelOpacity = Math.max(0, Math.min(1, (scale - 1.05) / 0.55));
+
   function onWheel(e: ReactWheelEvent) {
     e.preventDefault();
     setScale((s) => clampScale(s - e.deltaY * 0.0015));
@@ -89,8 +93,8 @@ export function MapView({
         {communeLabels.map(({ commune, xPct, yPct }) => (
           <div
             key={commune.id}
-            className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[11px] font-medium uppercase tracking-wide text-ink-400/70"
-            style={{ left: `${xPct}%`, top: `${yPct}%` }}
+            className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[11px] font-medium uppercase tracking-wide text-ink-400 transition-opacity duration-200"
+            style={{ left: `${xPct}%`, top: `${yPct}%`, opacity: labelOpacity }}
           >
             {commune.name}
           </div>
@@ -106,13 +110,13 @@ export function MapView({
                 e.stopPropagation();
                 onSelect(opp.id);
               }}
-              className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full font-semibold text-white shadow-[0_2px_8px_rgba(11,12,15,0.22)] ring-2 ring-white transition-all hover:scale-110"
+              className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full font-semibold text-white shadow-[0_2px_8px_rgba(11,12,15,0.22)] ring-2 ring-white transition-all hover:z-30 hover:scale-125"
               style={{
                 left: `${xPct}%`,
                 top: `${yPct}%`,
-                width: active ? 42 : 34,
-                height: active ? 42 : 34,
-                fontSize: active ? 14 : 12,
+                width: active ? 36 : 27,
+                height: active ? 36 : 27,
+                fontSize: active ? 13 : 10.5,
                 background: color,
                 boxShadow: active ? `0 2px 10px rgba(11,12,15,0.28), 0 0 0 4px ${color}2e` : undefined,
                 zIndex: active ? 20 : 10,
