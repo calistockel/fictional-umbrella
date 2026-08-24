@@ -1,6 +1,7 @@
 import type { Opportunity } from "../types";
 import { permitsForCommune, streetPool } from "./permits";
 import { communes } from "./communes";
+import { classifyZoningTailwind, scoreOpportunity } from "../lib/opportunityScoring";
 
 type Seed = {
   id: string;
@@ -8,7 +9,6 @@ type Seed = {
   address: string;
   dLat: number;
   dLng: number;
-  score: number;
   siteAreaM2: number;
   builtAreaM2: number;
   buildable: [number, number];
@@ -33,7 +33,6 @@ const seeds: Seed[] = [
     address: "Chaussée de Bruxelles 214, Waterloo",
     dLat: 0.004,
     dLng: -0.006,
-    score: 94,
     siteAreaM2: 4760,
     builtAreaM2: 620,
     buildable: [3100, 3900],
@@ -61,7 +60,6 @@ const seeds: Seed[] = [
     address: "Avenue Winston Churchill 88, Uccle",
     dLat: -0.006,
     dLng: 0.004,
-    score: 91,
     siteAreaM2: 3820,
     builtAreaM2: 540,
     buildable: [2400, 2900],
@@ -89,7 +87,6 @@ const seeds: Seed[] = [
     address: "Brusselsesteenweg 142, Overijse",
     dLat: 0.003,
     dLng: 0.005,
-    score: 87,
     siteAreaM2: 5220,
     builtAreaM2: 780,
     buildable: [3300, 4100],
@@ -116,7 +113,6 @@ const seeds: Seed[] = [
     address: "Leuvensesteenweg 310, Zaventem",
     dLat: -0.004,
     dLng: -0.003,
-    score: 85,
     siteAreaM2: 3960,
     builtAreaM2: 610,
     buildable: [2600, 3200],
@@ -143,7 +139,6 @@ const seeds: Seed[] = [
     address: "Brusselsesteenweg 76, Tervuren",
     dLat: 0.005,
     dLng: -0.004,
-    score: 82,
     siteAreaM2: 3340,
     builtAreaM2: 560,
     buildable: [2000, 2500],
@@ -166,7 +161,6 @@ const seeds: Seed[] = [
     address: "Avenue de Tervueren 412, Bruxelles",
     dLat: -0.003,
     dLng: 0.006,
-    score: 79,
     siteAreaM2: 2960,
     builtAreaM2: 520,
     buildable: [2100, 2600],
@@ -189,7 +183,6 @@ const seeds: Seed[] = [
     address: "Chaussée de La Hulpe 178, Watermael-Boitsfort",
     dLat: 0.002,
     dLng: -0.005,
-    score: 76,
     siteAreaM2: 4100,
     builtAreaM2: 700,
     buildable: [1900, 2400],
@@ -212,7 +205,6 @@ const seeds: Seed[] = [
     address: "Avenue de la Bergerie 45, Waterloo",
     dLat: -0.005,
     dLng: 0.003,
-    score: 73,
     siteAreaM2: 2680,
     builtAreaM2: 480,
     buildable: [1500, 1900],
@@ -235,7 +227,6 @@ const seeds: Seed[] = [
     address: "Waversesteenweg 210, Overijse",
     dLat: -0.004,
     dLng: 0.004,
-    score: 71,
     siteAreaM2: 3120,
     builtAreaM2: 640,
     buildable: [1700, 2100],
@@ -258,7 +249,6 @@ const seeds: Seed[] = [
     address: "Wezembeeklaan 63, Kraainem",
     dLat: 0.003,
     dLng: -0.003,
-    score: 68,
     siteAreaM2: 2450,
     builtAreaM2: 520,
     buildable: [1200, 1550],
@@ -281,7 +271,6 @@ const seeds: Seed[] = [
     address: "Chaussée d'Alsemberg 501, Uccle",
     dLat: 0.006,
     dLng: -0.002,
-    score: 65,
     siteAreaM2: 2180,
     builtAreaM2: 460,
     buildable: [1100, 1400],
@@ -304,7 +293,6 @@ const seeds: Seed[] = [
     address: "Chaussée de Waterloo 310, Rhode-Saint-Genèse",
     dLat: -0.003,
     dLng: -0.004,
-    score: 61,
     siteAreaM2: 3480,
     builtAreaM2: 780,
     buildable: [1400, 1800],
@@ -327,7 +315,6 @@ const seeds: Seed[] = [
     address: "Hoogstraat 22, Zaventem",
     dLat: 0.004,
     dLng: 0.003,
-    score: 58,
     siteAreaM2: 1980,
     builtAreaM2: 520,
     buildable: [950, 1250],
@@ -350,7 +337,6 @@ const seeds: Seed[] = [
     address: "Chaussée d'Ixelles 88, Bruxelles",
     dLat: 0.005,
     dLng: -0.005,
-    score: 55,
     siteAreaM2: 1640,
     builtAreaM2: 480,
     buildable: [850, 1100],
@@ -373,7 +359,6 @@ const seeds: Seed[] = [
     address: "Leuvensesteenweg 154, Tervuren",
     dLat: -0.005,
     dLng: 0.005,
-    score: 52,
     siteAreaM2: 2260,
     builtAreaM2: 610,
     buildable: [900, 1200],
@@ -396,7 +381,6 @@ const seeds: Seed[] = [
     address: "Avenue des Deux Chênes 12, Watermael-Boitsfort",
     dLat: -0.004,
     dLng: -0.003,
-    score: 47,
     siteAreaM2: 1520,
     builtAreaM2: 440,
     buildable: [600, 850],
@@ -419,7 +403,6 @@ const seeds: Seed[] = [
     address: "Kerkstraat 40, Kraainem",
     dLat: -0.002,
     dLng: 0.004,
-    score: 44,
     siteAreaM2: 1380,
     builtAreaM2: 420,
     buildable: [520, 720],
@@ -442,7 +425,6 @@ const seeds: Seed[] = [
     address: "Steenweg op Brussel 145, Rhode-Saint-Genèse",
     dLat: 0.004,
     dLng: 0.002,
-    score: 39,
     siteAreaM2: 1240,
     builtAreaM2: 380,
     buildable: [420, 600],
@@ -558,15 +540,22 @@ function generateSeeds(): Seed[] {
     for (let i = 0; i < count; i++) {
       const street = streets[Math.floor(rand() * streets.length)];
       const number = 4 + Math.floor(rand() * 240);
-
-      const base = commune.developmentFriendliness * 9 + (rand() - 0.5) * 34;
-      const score = Math.max(32, Math.min(96, Math.round(base)));
+      const zoning = zoningPool[Math.floor(rand() * zoningPool.length)];
 
       const siteAreaM2 = Math.round(1300 + rand() * 4200);
       const useRatio = 0.12 + rand() * 0.28;
       const builtAreaM2 = Math.round(siteAreaM2 * useRatio);
-      const buildableFactor = 0.32 + score / 260;
-      const buildableMin = Math.round(siteAreaM2 * buildableFactor);
+
+      // The buildable envelope is a feasibility read on the zoning, not a
+      // function of any score: a strong zoning tailwind (explicit density
+      // bonus / recent rezoning) raises the achievable density, and a
+      // commune with a track record of tolerating density (friendliness)
+      // nudges the realistic envelope up too. Neither of those is the
+      // Opportunity Score — that gets computed afterwards, from this.
+      const zoningTailwindFactor = { strong: 0.28, mild: 0.12, none: 0 }[classifyZoningTailwind(zoning)];
+      const communeFactor = (commune.developmentFriendliness - 5) * 0.05;
+      const densityFactor = Math.max(0.25, Math.min(1.1, 0.4 + zoningTailwindFactor + communeFactor + (rand() - 0.5) * 0.25));
+      const buildableMin = Math.round(siteAreaM2 * densityFactor);
       const buildableMax = Math.round(buildableMin * (1.18 + rand() * 0.14));
       const unitsMin = Math.max(3, Math.round(buildableMin / 105));
       const unitsMax = Math.max(unitsMin + 2, Math.round(buildableMax / 88));
@@ -596,23 +585,30 @@ function generateSeeds(): Seed[] {
         `Taux d'approbation de ${commune.approvalRate}% à ${commune.name} sur les 24 derniers mois`
       );
 
+      // Keep the narrative honest about whatever the Constraints score is
+      // actually penalising — a flood or heritage flag should never be
+      // silent in the watch-outs.
+      const watchOuts = pick(rand, watchPool, 2);
+      if (floodRisk === "high") watchOuts.unshift("Zone à risque d'inondation élevé — usage du rez-de-chaussée à valider");
+      else if (floodRisk === "medium") watchOuts.unshift("Risque d'inondation modéré à vérifier avant dépôt");
+      if (heritageConstraint) watchOuts.unshift("Contrainte patrimoniale — validation requise avant dépôt");
+
       out.push({
         id: `opp-${communeId}-${i + 1}`,
         communeId,
         address: `${street} ${number}, ${commune.name}`,
         dLat: (rand() - 0.5) * 0.016,
         dLng: (rand() - 0.5) * 0.016,
-        score,
         siteAreaM2,
         builtAreaM2,
         buildable: [buildableMin, buildableMax],
         units: [unitsMin, unitsMax],
         timelineMonths,
-        zoning: zoningPool[Math.floor(rand() * zoningPool.length)],
+        zoning,
         currentBuilding: buildingPool[Math.floor(rand() * buildingPool.length)],
         context: commune.blurb,
         whyItWorks: why,
-        watchOuts: pick(rand, watchPool, 2),
+        watchOuts,
         floodRisk,
         heritageConstraint,
         transitWalkMin: 4 + Math.floor(rand() * 17),
@@ -624,35 +620,31 @@ function generateSeeds(): Seed[] {
   return out;
 }
 
-function scoreBand(score: number) {
-  if (score >= 85) return "excellent" as const;
-  if (score >= 70) return "strong" as const;
-  if (score >= 55) return "worth_investigating" as const;
-  return "low" as const;
-}
-
-function subScoresFor(seed: Seed) {
-  const rand = (n: number) => Math.round(((n * 9301 + 49297) % 233280) / 233280 * 10);
-  const jitter1 = rand(seed.score) % 7 - 3;
-  const jitter2 = rand(seed.score + 17) % 7 - 3;
-  const development = Math.max(20, Math.min(99, seed.score + 3 + jitter1));
-  const constraints = Math.max(20, Math.min(99, seed.score - 4 + jitter2));
-  const planning = Math.max(20, Math.min(99, seed.score));
-  return { development, planning, constraints };
-}
-
 function buildOpportunities(): Opportunity[] {
   const allSeeds = [...seeds, ...generateSeeds()];
   return allSeeds.map((seed) => {
     const commune = communes.find((c) => c.id === seed.communeId)!;
-    const comparablePermitIds = permitsForCommune(seed.communeId)
-      .slice(0, seed.comparableCount)
-      .map((p) => p.id);
-    const approved = permitsForCommune(seed.communeId)
-      .slice(0, seed.comparableCount)
-      .filter((p) => p.status === "approved").length;
-    const rawRatio = approved / seed.comparableCount;
-    const planningConfidencePct = Math.max(28, Math.min(96, Math.round(rawRatio * 100 * 0.6 + seed.score * 0.4)));
+    const comparablePermits = permitsForCommune(seed.communeId).slice(0, seed.comparableCount);
+    const approved = comparablePermits.filter((p) => p.status === "approved").length;
+
+    const { development, planning, constraints, overall } = scoreOpportunity({
+      siteAreaM2: seed.siteAreaM2,
+      builtAreaM2: seed.builtAreaM2,
+      buildableM2: seed.buildable,
+      zoning: seed.zoning,
+      floodRisk: seed.floodRisk,
+      heritageConstraint: seed.heritageConstraint,
+      transitWalkMin: seed.transitWalkMin,
+      commune: {
+        approvalRate: commune.approvalRate,
+        approvalRateTrendPts: commune.approvalRateTrendPts,
+        medianDecisionDays: commune.medianDecisionDays,
+        incompleteFileRate: commune.incompleteFileRate,
+        developmentFriendliness: commune.developmentFriendliness,
+      },
+      comparablePermits,
+    });
+
     const whyItWorks = seed.whyItWorks.map((line) =>
       line === "__COMPARABLE_STAT__"
         ? `${approved} permis comparables sur ${seed.comparableCount} approuvés dans le secteur`
@@ -665,14 +657,14 @@ function buildOpportunities(): Opportunity[] {
       address: seed.address,
       lat: commune.lat + seed.dLat,
       lng: commune.lng + seed.dLng,
-      score: seed.score,
-      subScores: subScoresFor(seed),
+      score: overall,
+      subScores: { development, planning, constraints },
       siteAreaM2: seed.siteAreaM2,
       builtAreaM2: seed.builtAreaM2,
       currentUseRatioPct: Math.round((seed.builtAreaM2 / seed.siteAreaM2) * 100),
       buildableM2: seed.buildable,
       units: seed.units,
-      planningConfidencePct,
+      planningConfidencePct: planning,
       timelineMonths: seed.timelineMonths,
       zoning: seed.zoning,
       currentBuilding: seed.currentBuilding,
@@ -683,7 +675,7 @@ function buildOpportunities(): Opportunity[] {
       heritageConstraint: seed.heritageConstraint,
       transitWalkMin: seed.transitWalkMin,
       detectedDaysAgo: seed.detectedDaysAgo,
-      comparablePermitIds,
+      comparablePermitIds: comparablePermits.map((p) => p.id),
     };
   });
 }
@@ -691,5 +683,3 @@ function buildOpportunities(): Opportunity[] {
 export const opportunities: Opportunity[] = buildOpportunities();
 
 export const opportunityById = (id: string) => opportunities.find((o) => o.id === id);
-
-export { scoreBand };

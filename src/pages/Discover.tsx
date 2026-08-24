@@ -35,7 +35,7 @@ export function Discover() {
   }, [criteria]);
 
   const newToday = opportunities.filter((o) => o.detectedDaysAgo === 0).length;
-  const strongMatches = opportunities.filter((o) => o.score >= 70).length;
+  const strongMatches = opportunities.filter((o) => o.score >= 60).length;
 
   const activeOpp = results.find((o) => o.id === activeId) ?? null;
 

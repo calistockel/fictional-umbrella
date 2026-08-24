@@ -1,9 +1,13 @@
 export type ScoreBand = "excellent" | "strong" | "worth_investigating" | "low";
 
+// Thresholds are calibrated against the actual output distribution of the
+// scoring engine (see src/lib/opportunityScoring.ts) on the current mock
+// dataset, not picked in the abstract — they should be revisited once
+// scores are computed from real data with a materially different spread.
 export function bandForScore(score: number): ScoreBand {
-  if (score >= 85) return "excellent";
-  if (score >= 70) return "strong";
-  if (score >= 55) return "worth_investigating";
+  if (score >= 75) return "excellent";
+  if (score >= 60) return "strong";
+  if (score >= 45) return "worth_investigating";
   return "low";
 }
 
