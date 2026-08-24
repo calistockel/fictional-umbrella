@@ -26,3 +26,5 @@ dist-ssr
 # data-pipeline: never commit local venvs or raw pulled data
 data-pipeline/.venv/
 data-pipeline/raw/
+__pycache__/
+*.pyc
