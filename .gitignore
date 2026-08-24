@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# data-pipeline: never commit local venvs or raw pulled data
+data-pipeline/.venv/
+data-pipeline/raw/
