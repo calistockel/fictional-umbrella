@@ -2,10 +2,10 @@ import { CheckCircle2, XCircle, MinusCircle, Clock } from "lucide-react";
 import type { ComparablePermit } from "../types";
 
 const statusMeta: Record<ComparablePermit["status"], { label: string; className: string; icon: typeof CheckCircle2 }> = {
-  approved: { label: "Approved", className: "text-score-excellent bg-score-excellent-bg", icon: CheckCircle2 },
-  refused: { label: "Refused", className: "text-risk-high bg-red-50", icon: XCircle },
-  withdrawn: { label: "Withdrawn", className: "text-ink-500 bg-ink-100", icon: MinusCircle },
-  pending: { label: "Pending", className: "text-score-moderate bg-score-moderate-bg", icon: Clock },
+  approved: { label: "Approuvé", className: "text-score-excellent bg-score-excellent-bg", icon: CheckCircle2 },
+  refused: { label: "Refusé", className: "text-risk-high bg-red-50", icon: XCircle },
+  withdrawn: { label: "Retiré", className: "text-ink-500 bg-ink-100", icon: MinusCircle },
+  pending: { label: "En attente", className: "text-score-moderate bg-score-moderate-bg", icon: Clock },
 };
 
 export function ComparablePermitCard({ permit }: { permit: ComparablePermit }) {
@@ -24,7 +24,7 @@ export function ComparablePermitCard({ permit }: { permit: ComparablePermit }) {
         </div>
         <div className="text-right">
           <p className="text-[13px] font-semibold tabular text-ink-900">{permit.units}</p>
-          <p className="text-[11px] text-ink-400">units</p>
+          <p className="text-[11px] text-ink-400">unités</p>
         </div>
         <span className={`flex items-center gap-1 rounded-full px-2 py-1 text-[11.5px] font-medium ${meta.className}`}>
           <Icon size={12} />

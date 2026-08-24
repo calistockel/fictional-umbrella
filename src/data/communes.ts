@@ -14,7 +14,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "high",
     developmentFriendliness: 7.4,
-    blurb: "Strong residential demand with growing tolerance for densification along transit corridors.",
+    blurb: "Forte demande résidentielle et tolérance croissante à la densification le long des axes de transport.",
   },
   {
     id: "watermael-boitsfort",
@@ -29,7 +29,7 @@ export const communes: Commune[] = [
     densityTrend: "flat",
     permitActivity: "medium",
     developmentFriendliness: 6.5,
-    blurb: "Green, low-rise character preserved by planners; mid-density infill still gets through.",
+    blurb: "Caractère verdoyant et peu dense préservé par les urbanistes ; les projets de densité moyenne passent encore.",
   },
   {
     id: "waterloo",
@@ -44,7 +44,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "high",
     developmentFriendliness: 8.2,
-    blurb: "Fastest-moving municipality in the sample. Clear appetite for mid-rise residential near the centre.",
+    blurb: "Commune la plus rapide de l'échantillon. Appétit net pour le résidentiel moyenne hauteur près du centre.",
   },
   {
     id: "rhode-saint-genese",
@@ -59,7 +59,7 @@ export const communes: Commune[] = [
     densityTrend: "flat",
     permitActivity: "low",
     developmentFriendliness: 5.1,
-    blurb: "Sensitive residential neighbours and frequent objections; approvals skew toward small-scale projects.",
+    blurb: "Voisinage résidentiel sensible et recours fréquents ; les approbations favorisent les petits projets.",
   },
   {
     id: "overijse",
@@ -74,7 +74,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "high",
     developmentFriendliness: 7.8,
-    blurb: "Recent zoning updates are actively encouraging replacement of underused plots with apartments.",
+    blurb: "Les récentes mises à jour du plan d'affectation encouragent activement le remplacement des parcelles sous-exploitées par des immeubles.",
   },
   {
     id: "tervuren",
@@ -89,7 +89,7 @@ export const communes: Commune[] = [
     densityTrend: "flat",
     permitActivity: "medium",
     developmentFriendliness: 6.7,
-    blurb: "Heritage and forest-edge constraints in parts of the commune; centre remains workable.",
+    blurb: "Contraintes patrimoniales et de lisière forestière dans certaines zones ; le centre reste exploitable.",
   },
   {
     id: "zaventem",
@@ -104,7 +104,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "high",
     developmentFriendliness: 7.1,
-    blurb: "Airport-adjacent growth corridor; strong transit access supports higher-density approvals.",
+    blurb: "Corridor de croissance proche de l'aéroport ; le bon accès transport favorise les densités plus élevées.",
   },
   {
     id: "kraainem",
@@ -119,11 +119,11 @@ export const communes: Commune[] = [
     densityTrend: "flat",
     permitActivity: "low",
     developmentFriendliness: 5.4,
-    blurb: "Small, residentially sensitive commune. Public inquiries are common and often decisive.",
+    blurb: "Petite commune, sensible sur le plan résidentiel. Les enquêtes publiques sont fréquentes et souvent décisives.",
   },
   {
     id: "brussels-centre",
-    name: "Brussels",
+    name: "Bruxelles",
     region: "Brussels",
     lat: 50.8503,
     lng: 4.3517,
@@ -134,7 +134,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "high",
     developmentFriendliness: 6.9,
-    blurb: "High activity, high competition. Best odds near transit hubs and recent regeneration zones.",
+    blurb: "Forte activité, forte concurrence. Meilleures chances près des pôles de transport et des zones de régénération récentes.",
   },
   {
     id: "ixelles",
@@ -149,7 +149,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "high",
     developmentFriendliness: 6.6,
-    blurb: "Dense, sought-after, and competitive. Conversions near the ponds and university clear review fastest.",
+    blurb: "Dense, prisée et concurrentielle. Les conversions près des étangs et de l'université passent le plus vite.",
   },
   {
     id: "etterbeek",
@@ -164,7 +164,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "medium",
     developmentFriendliness: 6.8,
-    blurb: "EU-quarter adjacency keeps rental demand strong; planners are receptive to modest densification.",
+    blurb: "La proximité du quartier européen maintient une forte demande locative ; les urbanistes acceptent une densification modérée.",
   },
   {
     id: "schaerbeek",
@@ -179,7 +179,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "high",
     developmentFriendliness: 6.4,
-    blurb: "Belgium's most populous commune. High permit volume and a clear tilt toward more units per plot.",
+    blurb: "Commune la plus peuplée de Belgique. Volume de permis élevé et nette inclination vers plus d'unités par parcelle.",
   },
   {
     id: "saint-gilles",
@@ -194,7 +194,7 @@ export const communes: Commune[] = [
     densityTrend: "flat",
     permitActivity: "medium",
     developmentFriendliness: 5.8,
-    blurb: "Dense 19th-century fabric with strong heritage sensitivity outside the station perimeter.",
+    blurb: "Tissu dense du XIXe siècle, forte sensibilité patrimoniale en dehors du périmètre de la gare.",
   },
   {
     id: "forest",
@@ -209,7 +209,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "medium",
     developmentFriendliness: 6.7,
-    blurb: "Former industrial pockets near the Midi corridor are increasingly approved for residential reuse.",
+    blurb: "D'anciennes poches industrielles près du corridor du Midi sont de plus en plus approuvées pour un usage résidentiel.",
   },
   {
     id: "woluwe-saint-pierre",
@@ -224,7 +224,7 @@ export const communes: Commune[] = [
     densityTrend: "flat",
     permitActivity: "medium",
     developmentFriendliness: 7.0,
-    blurb: "Affluent, orderly review process. Moderate density additions along main avenues are well received.",
+    blurb: "Commune aisée, processus d'instruction ordonné. Les ajouts de densité modérée le long des grandes avenues sont bien accueillis.",
   },
   {
     id: "auderghem",
@@ -239,7 +239,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "medium",
     developmentFriendliness: 7.2,
-    blurb: "Green and residential, but consistently approving mid-rise replacement along the chaussées.",
+    blurb: "Verdoyante et résidentielle, mais approuve régulièrement le remplacement en moyenne hauteur le long des chaussées.",
   },
   {
     id: "vilvoorde",
@@ -254,7 +254,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "high",
     developmentFriendliness: 7.6,
-    blurb: "Former industrial town actively converting brownfield sites to residential along the canal.",
+    blurb: "Ancienne ville industrielle convertissant activement ses friches en résidentiel le long du canal.",
   },
   {
     id: "grimbergen",
@@ -269,7 +269,7 @@ export const communes: Commune[] = [
     densityTrend: "flat",
     permitActivity: "medium",
     developmentFriendliness: 6.3,
-    blurb: "Suburban and steady. Mid-scale residential infill near the centre performs consistently.",
+    blurb: "Périurbaine et stable. Le comblement résidentiel de taille moyenne près du centre performe régulièrement.",
   },
   {
     id: "dilbeek",
@@ -284,7 +284,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "high",
     developmentFriendliness: 7.5,
-    blurb: "Fast-growing western gateway to Brussels with an accommodating stance on apartment schemes.",
+    blurb: "Porte d'entrée ouest de Bruxelles en forte croissance, avec une posture accommodante sur les projets d'appartements.",
   },
   {
     id: "sint-pieters-leeuw",
@@ -299,7 +299,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "medium",
     developmentFriendliness: 7.0,
-    blurb: "Motorway-adjacent commune with growing appetite for residential conversion of commercial plots.",
+    blurb: "Commune proche de l'autoroute avec un appétit croissant pour la conversion résidentielle de parcelles commerciales.",
   },
   {
     id: "beersel",
@@ -314,7 +314,7 @@ export const communes: Commune[] = [
     densityTrend: "flat",
     permitActivity: "low",
     developmentFriendliness: 5.6,
-    blurb: "Semi-rural character preserved deliberately; approvals favour small, contextual schemes.",
+    blurb: "Caractère semi-rural délibérément préservé ; les approbations favorisent les petits projets contextuels.",
   },
   {
     id: "linkebeek",
@@ -329,7 +329,7 @@ export const communes: Commune[] = [
     densityTrend: "flat",
     permitActivity: "low",
     developmentFriendliness: 4.9,
-    blurb: "Smallest commune in the sample by area. Multi-unit permits are rare and closely scrutinised.",
+    blurb: "Plus petite commune de l'échantillon par superficie. Les permis multi-unités sont rares et étroitement examinés.",
   },
   {
     id: "wezembeek-oppem",
@@ -344,7 +344,7 @@ export const communes: Commune[] = [
     densityTrend: "flat",
     permitActivity: "low",
     developmentFriendliness: 5.3,
-    blurb: "Quiet residential commune bordering the Kraainem cluster; similarly cautious on density.",
+    blurb: "Commune résidentielle calme bordant le pôle de Kraainem ; tout aussi prudente sur la densité.",
   },
   {
     id: "kortenberg",
@@ -359,7 +359,7 @@ export const communes: Commune[] = [
     densityTrend: "up",
     permitActivity: "high",
     developmentFriendliness: 7.7,
-    blurb: "Rail-connected commuter town with an explicit policy push for station-area apartments.",
+    blurb: "Ville-dortoir connectée au rail avec une politique explicite en faveur des appartements près de la gare.",
   },
   {
     id: "hoeilaart",
@@ -374,7 +374,7 @@ export const communes: Commune[] = [
     densityTrend: "flat",
     permitActivity: "medium",
     developmentFriendliness: 6.1,
-    blurb: "Bordering the Sonian Forest; approvals possible but subject to close environmental review.",
+    blurb: "En bordure de la forêt de Soignes ; approbations possibles mais soumises à un examen environnemental approfondi.",
   },
 ];
 

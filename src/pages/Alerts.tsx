@@ -7,9 +7,9 @@ import { ScoreDot } from "../components/ScoreBadge";
 import type { FeedEvent } from "../types";
 
 const bucketLabel: Record<FeedEvent["bucket"], string> = {
-  today: "Today",
-  this_week: "This week",
-  earlier: "Earlier",
+  today: "Aujourd'hui",
+  this_week: "Cette semaine",
+  earlier: "Plus tôt",
 };
 
 const typeIcon: Record<FeedEvent["type"], typeof Sparkles> = {
@@ -26,8 +26,8 @@ export function Alerts() {
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-8">
-      <h1 className="text-[24px] font-semibold tracking-tight text-ink-900">Opportunity feed</h1>
-      <p className="mt-1 text-[14px] text-ink-500">What changed on the territory since your last visit.</p>
+      <h1 className="text-[24px] font-semibold tracking-tight text-ink-900">Fil d'opportunités</h1>
+      <p className="mt-1 text-[14px] text-ink-500">Ce qui a changé sur le territoire depuis votre dernière visite.</p>
 
       <div className="mt-7 space-y-8">
         {buckets.map((bucket) => {
@@ -73,7 +73,7 @@ function FeedItem({ event }: { event: FeedEvent }) {
             to={`/opportunity/${opp.id}`}
             className="mt-2 inline-block text-[12.5px] font-medium text-brand-600 hover:text-brand-700"
           >
-            View →
+            Voir →
           </Link>
         )}
       </div>

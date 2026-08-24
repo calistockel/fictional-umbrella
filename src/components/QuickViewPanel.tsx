@@ -26,14 +26,14 @@ export function QuickViewPanel({ opp, onClose }: { opp: Opportunity; onClose: ()
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-2">
-        <Stat label="Site area" value={`${opp.siteAreaM2.toLocaleString("en-US")} m²`} />
-        <Stat label="Potential units" value={formatRange(opp.units)} />
-        <Stat label="Planning confidence" value={`${opp.planningConfidencePct}%`} />
-        <Stat label="Timeline" value={`${opp.timelineMonths[0]}–${opp.timelineMonths[1]} mo`} />
+        <Stat label="Surface du terrain" value={`${opp.siteAreaM2.toLocaleString("fr-BE")} m²`} />
+        <Stat label="Unités potentielles" value={formatRange(opp.units)} />
+        <Stat label="Confiance urbanistique" value={`${opp.planningConfidencePct}%`} />
+        <Stat label="Délai" value={`${opp.timelineMonths[0]}–${opp.timelineMonths[1]} mois`} />
       </div>
 
       <div className="mt-4 border-t border-ink-100 pt-3">
-        <p className="text-[11.5px] font-medium uppercase tracking-wide text-ink-400">Why it stands out</p>
+        <p className="text-[11.5px] font-medium uppercase tracking-wide text-ink-400">Pourquoi elle se démarque</p>
         <ul className="mt-1.5 space-y-1">
           {opp.whyItWorks.slice(0, 2).map((w) => (
             <li key={w} className="text-[12.5px] leading-snug text-ink-600">
@@ -48,7 +48,7 @@ export function QuickViewPanel({ opp, onClose }: { opp: Opportunity; onClose: ()
           to={`/opportunity/${opp.id}`}
           className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-ink-900 py-2 text-[13px] font-medium text-white transition-colors hover:bg-ink-800"
         >
-          View opportunity <ArrowRight size={13} />
+          Voir l'opportunité <ArrowRight size={13} />
         </Link>
         <button
           onClick={() => toggleSaved(opp.id)}

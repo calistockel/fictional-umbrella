@@ -9,9 +9,9 @@ export function bandForScore(score: number): ScoreBand {
 
 export const bandLabel: Record<ScoreBand, string> = {
   excellent: "Excellent",
-  strong: "Strong",
-  worth_investigating: "Worth investigating",
-  low: "Low potential",
+  strong: "Solide",
+  worth_investigating: "À explorer",
+  low: "Potentiel faible",
 };
 
 export const bandClasses: Record<ScoreBand, { text: string; bg: string; ring: string }> = {
@@ -22,7 +22,7 @@ export const bandClasses: Record<ScoreBand, { text: string; bg: string; ring: st
 };
 
 export function riskLabel(risk: "low" | "medium" | "high") {
-  return { low: "Low", medium: "Medium", high: "High" }[risk];
+  return { low: "Faible", medium: "Moyen", high: "Élevé" }[risk];
 }
 
 export function riskClasses(risk: "low" | "medium" | "high") {
@@ -34,5 +34,5 @@ export function riskClasses(risk: "low" | "medium" | "high") {
 }
 
 export function formatRange(range: [number, number], unit = "") {
-  return `${range[0].toLocaleString("en-US")}–${range[1].toLocaleString("en-US")}${unit}`;
+  return `${range[0].toLocaleString("fr-BE")}–${range[1].toLocaleString("fr-BE")}${unit}`;
 }

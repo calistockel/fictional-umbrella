@@ -31,7 +31,7 @@ export function SearchBar({ query, onQueryChange, chips, onRemoveChip, criteria,
         <input
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
-          placeholder="Search an area or describe what you're looking for…"
+          placeholder="Recherchez une zone ou décrivez ce que vous cherchez…"
           className="w-full bg-transparent text-[15px] text-ink-900 placeholder:text-ink-400 focus:outline-none"
         />
         <div className="relative shrink-0" ref={popRef}>
@@ -42,14 +42,14 @@ export function SearchBar({ query, onQueryChange, chips, onRemoveChip, criteria,
             }`}
           >
             <SlidersHorizontal size={13} />
-            Filters
+            Filtres
           </button>
           {filtersOpen && (
             <div className="animate-fade-in-up absolute right-0 top-11 z-50 w-72 rounded-xl border border-ink-150 bg-white p-4 shadow-pop">
-              <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-ink-400">Advanced filters</p>
+              <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-ink-400">Filtres avancés</p>
               <div className="space-y-3.5">
                 <div>
-                  <label className="mb-1 block text-[12.5px] font-medium text-ink-700">Units range</label>
+                  <label className="mb-1 block text-[12.5px] font-medium text-ink-700">Nombre d'unités</label>
                   <div className="flex items-center gap-2">
                     <input
                       type="number"
@@ -69,10 +69,10 @@ export function SearchBar({ query, onQueryChange, chips, onRemoveChip, criteria,
                   </div>
                 </div>
                 <div>
-                  <label className="mb-1 block text-[12.5px] font-medium text-ink-700">Minimum site area (m²)</label>
+                  <label className="mb-1 block text-[12.5px] font-medium text-ink-700">Surface minimale du terrain (m²)</label>
                   <input
                     type="number"
-                    placeholder="e.g. 1500"
+                    placeholder="ex. 1500"
                     value={criteria.minSiteArea ?? ""}
                     onChange={(e) => onCriteriaChange({ ...criteria, minSiteArea: e.target.value ? Number(e.target.value) : undefined })}
                     className="w-full rounded-lg border border-ink-200 px-2.5 py-1.5 text-[13px] focus:border-brand-400 focus:outline-none"
@@ -85,7 +85,7 @@ export function SearchBar({ query, onQueryChange, chips, onRemoveChip, criteria,
                     onChange={(e) => onCriteriaChange({ ...criteria, excludeHighFloodRisk: e.target.checked })}
                     className="h-3.5 w-3.5 accent-brand-500"
                   />
-                  Exclude high flood risk
+                  Exclure le risque d'inondation élevé
                 </label>
                 <label className="flex items-center gap-2 text-[13px] text-ink-700">
                   <input
@@ -94,7 +94,7 @@ export function SearchBar({ query, onQueryChange, chips, onRemoveChip, criteria,
                     onChange={(e) => onCriteriaChange({ ...criteria, underusedOnly: e.target.checked })}
                     className="h-3.5 w-3.5 accent-brand-500"
                   />
-                  Underused sites only
+                  Sites sous-exploités uniquement
                 </label>
               </div>
             </div>
@@ -116,7 +116,7 @@ export function SearchBar({ query, onQueryChange, chips, onRemoveChip, criteria,
         ))}
         {chips.length === 0 && (
           <div className="flex flex-wrap items-center gap-1.5 text-[12.5px] text-ink-400">
-            <span>Try:</span>
+            <span>Essayez :</span>
             {exampleQueries.map((ex) => (
               <button
                 key={ex}

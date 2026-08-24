@@ -145,7 +145,7 @@ export function MapView({
       </div>
 
       <div className="pointer-events-none absolute bottom-4 left-4 text-[10.5px] text-ink-400">
-        Illustrative map · not to scale
+        Carte illustrative · pas à l'échelle
       </div>
     </div>
   );

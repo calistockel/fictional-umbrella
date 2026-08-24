@@ -22,7 +22,7 @@ export function OpportunityCard({ opp, compact = false }: { opp: Opportunity; co
           e.preventDefault();
           toggleSaved(opp.id);
         }}
-        aria-label={saved ? "Remove from saved" : "Save opportunity"}
+        aria-label={saved ? "Retirer des enregistrés" : "Enregistrer l'opportunité"}
         className={`absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
           saved ? "bg-ink-900 text-white" : "bg-ink-50 text-ink-400 hover:text-ink-700"
         }`}
@@ -37,7 +37,7 @@ export function OpportunityCard({ opp, compact = false }: { opp: Opportunity; co
             <h3 className="truncate text-[14.5px] font-semibold text-ink-900">{commune.name}</h3>
             {opp.detectedDaysAgo === 0 && (
               <span className="rounded-full bg-brand-100 px-1.5 py-0.5 text-[10px] font-semibold text-brand-600">
-                NEW
+                NOUVEAU
               </span>
             )}
           </div>
@@ -47,22 +47,22 @@ export function OpportunityCard({ opp, compact = false }: { opp: Opportunity; co
 
       <div className="mt-3.5 grid grid-cols-3 gap-2 text-center">
         <div className="rounded-lg bg-ink-50 py-1.5">
-          <div className="text-[13px] font-semibold tabular text-ink-900">{opp.siteAreaM2.toLocaleString("en-US")} m²</div>
-          <div className="text-[10.5px] text-ink-500">Site</div>
+          <div className="text-[13px] font-semibold tabular text-ink-900">{opp.siteAreaM2.toLocaleString("fr-BE")} m²</div>
+          <div className="text-[10.5px] text-ink-500">Terrain</div>
         </div>
         <div className="rounded-lg bg-ink-50 py-1.5">
           <div className="text-[13px] font-semibold tabular text-ink-900">{formatRange(opp.units)}</div>
-          <div className="text-[10.5px] text-ink-500">Units</div>
+          <div className="text-[10.5px] text-ink-500">Unités</div>
         </div>
         <div className="rounded-lg bg-ink-50 py-1.5">
           <div className="text-[13px] font-semibold tabular text-ink-900">{opp.planningConfidencePct}%</div>
-          <div className="text-[10.5px] text-ink-500">Confidence</div>
+          <div className="text-[10.5px] text-ink-500">Confiance</div>
         </div>
       </div>
 
       {!compact && (
         <div className="mt-3 border-t border-ink-100 pt-2.5">
-          <p className="text-[11.5px] font-medium uppercase tracking-wide text-ink-400">Why it stands out</p>
+          <p className="text-[11.5px] font-medium uppercase tracking-wide text-ink-400">Pourquoi elle se démarque</p>
           <p className="mt-0.5 truncate text-[12.5px] text-ink-600">
             {opp.whyItWorks.slice(0, 2).join(" · ")}
           </p>
@@ -72,7 +72,7 @@ export function OpportunityCard({ opp, compact = false }: { opp: Opportunity; co
       <div className="mt-3 flex items-center justify-between">
         <span className="text-[11.5px] font-medium text-ink-400">{bandLabel[band]}</span>
         <span className="text-[12.5px] font-medium text-brand-600 opacity-0 transition-opacity group-hover:opacity-100">
-          View opportunity →
+          Voir l'opportunité →
         </span>
       </div>
     </Link>

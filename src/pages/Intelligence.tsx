@@ -4,6 +4,8 @@ import { opportunities } from "../data/opportunities";
 import { CommuneCard } from "../components/CommuneCard";
 import { X } from "lucide-react";
 
+const activityLabel = { high: "Élevée", medium: "Moyenne", low: "Faible" } as const;
+
 export function Intelligence() {
   const [selected, setSelected] = useState<string[]>([]);
 
@@ -21,13 +23,13 @@ export function Intelligence() {
     <div className="mx-auto max-w-[1200px] px-6 py-8">
       <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-[24px] font-semibold tracking-tight text-ink-900">Planning intelligence</h1>
+          <h1 className="text-[24px] font-semibold tracking-tight text-ink-900">Intelligence urbanistique</h1>
           <p className="mt-1 text-[14px] text-ink-500">
-            Metrics derived from historical planning decisions, not published in any public dataset.
+            Indicateurs dérivés des décisions urbanistiques historiques, non publiés dans un jeu de données public.
           </p>
         </div>
         {selectedCommunes.length > 0 && (
-          <p className="text-[12.5px] text-ink-400">Select up to 3 municipalities to compare</p>
+          <p className="text-[12.5px] text-ink-400">Sélectionnez jusqu'à 3 communes à comparer</p>
         )}
       </div>
 
@@ -36,7 +38,7 @@ export function Intelligence() {
           <table className="w-full min-w-[560px] border-collapse text-left">
             <thead>
               <tr className="border-b border-ink-100">
-                <th className="px-5 py-3 text-[11.5px] font-medium uppercase tracking-wide text-ink-400">Metric</th>
+                <th className="px-5 py-3 text-[11.5px] font-medium uppercase tracking-wide text-ink-400">Indicateur</th>
                 {selectedCommunes.map((c) => (
                   <th key={c.id} className="px-5 py-3">
                     <div className="flex items-center justify-between gap-2">
@@ -50,15 +52,15 @@ export function Intelligence() {
               </tr>
             </thead>
             <tbody className="text-[13px]">
-              <CompareRow label="Approval rate" values={selectedCommunes.map((c) => `${c.approvalRate}%`)} />
-              <CompareRow label="Median decision time" values={selectedCommunes.map((c) => `${c.medianDecisionDays} days`)} />
-              <CompareRow label="Incomplete file rate" values={selectedCommunes.map((c) => `${c.incompleteFileRate}%`)} />
+              <CompareRow label="Taux d'approbation" values={selectedCommunes.map((c) => `${c.approvalRate}%`)} />
+              <CompareRow label="Délai médian de décision" values={selectedCommunes.map((c) => `${c.medianDecisionDays} jours`)} />
+              <CompareRow label="Taux de dossiers incomplets" values={selectedCommunes.map((c) => `${c.incompleteFileRate}%`)} />
               <CompareRow
-                label="Approval trend (24mo)"
+                label="Tendance d'approbation (24 mois)"
                 values={selectedCommunes.map((c) => `${c.approvalRateTrendPts > 0 ? "+" : ""}${c.approvalRateTrendPts} pts`)}
               />
-              <CompareRow label="Permit activity" values={selectedCommunes.map((c) => c.permitActivity)} />
-              <CompareRow label="Development friendliness" values={selectedCommunes.map((c) => `${c.developmentFriendliness} / 10`)} last />
+              <CompareRow label="Activité des permis" values={selectedCommunes.map((c) => activityLabel[c.permitActivity])} />
+              <CompareRow label="Facilité de développement" values={selectedCommunes.map((c) => `${c.developmentFriendliness} / 10`)} last />
             </tbody>
           </table>
         </div>

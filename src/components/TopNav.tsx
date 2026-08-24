@@ -3,10 +3,10 @@ import { Compass, Bell, Bookmark, BarChart3 } from "lucide-react";
 import { useSaved } from "../lib/SavedContext";
 
 const navItems = [
-  { to: "/", label: "Discover", icon: Compass, end: true },
-  { to: "/intelligence", label: "Intelligence", icon: BarChart3, end: false },
-  { to: "/saved", label: "Saved", icon: Bookmark, end: false },
-  { to: "/alerts", label: "Alerts", icon: Bell, end: false },
+  { to: "/", id: "discover", label: "Découvrir", icon: Compass, end: true },
+  { to: "/intelligence", id: "intelligence", label: "Intelligence", icon: BarChart3, end: false },
+  { to: "/saved", id: "saved", label: "Enregistrés", icon: Bookmark, end: false },
+  { to: "/alerts", id: "alerts", label: "Alertes", icon: Bell, end: false },
 ];
 
 export function TopNav() {
@@ -23,7 +23,7 @@ export function TopNav() {
         </NavLink>
 
         <nav className="flex items-center gap-1">
-          {navItems.map(({ to, label, icon: Icon, end }) => (
+          {navItems.map(({ to, id, label, icon: Icon, end }) => (
             <NavLink
               key={to}
               to={to}
@@ -36,12 +36,12 @@ export function TopNav() {
             >
               <Icon size={15} strokeWidth={2} />
               {label}
-              {label === "Saved" && savedIds.length > 0 && (
+              {id === "saved" && savedIds.length > 0 && (
                 <span className="ml-0.5 rounded-full bg-ink-200 px-1.5 py-0.5 text-[10.5px] font-semibold text-ink-700 tabular">
                   {savedIds.length}
                 </span>
               )}
-              {label === "Alerts" && (
+              {id === "alerts" && (
                 <span className="ml-0.5 h-1.5 w-1.5 rounded-full bg-brand-500" />
               )}
             </NavLink>
@@ -49,7 +49,7 @@ export function TopNav() {
         </nav>
 
         <div className="ml-auto flex items-center gap-3">
-          <span className="hidden text-[12.5px] text-ink-400 sm:inline">Brussels + Flanders</span>
+          <span className="hidden text-[12.5px] text-ink-400 sm:inline">Bruxelles + Flandre</span>
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-ink-900 text-[12px] font-semibold text-white">
             JV
           </div>
